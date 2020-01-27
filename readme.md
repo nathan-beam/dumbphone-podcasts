@@ -1,0 +1,11 @@
+# What is this?
+This pair python script will pull in a folder of audio files, dice them into preconfigured lengths, and then, when a specified device is plugged in, push those segments out to that device automatically.
+
+# But why?
+Alright, so, I have a dumbphone. An [Alcatel Go Flip](https://us.alcatelmobile.com/alcatel-go-flip/) to be exact. I got it because my normal smartphone was becoming too big of a distraction. Twitter, Facebook, Reddit, Discord, email, all pinging me constantly. I tried uninstalling these apps but I always found myself adding them back. So I went the nuclear route and bought myself a dumb phone. Overall, it's been great; I've found my concentration has improved dramatically and I'm much more attentive and focused on whatever task is at hand. The one thing I miss though, is podcasts. 
+
+# The problem
+The Alcatel GoFlip has a music player. It's about as spartan as it gets though. You can organize by artist or album, play, pause, skip, shuffle, and repeat. Fast forwarding is done in 30 second chunks by holding the right arrow for 1 second, which means to fast forward 30 minutes would require me to hold the forward key for 60 continuous seconds. Oh, and your progress through the audio file is reset whenever you reboot your phone. The prospect of spending an entire minute holding down the skip key to get back to halfway through an episode of a podcast makes me want to just give up and listen to harsh noise - at least you cant really tell where it starts or ends.
+
+# The solution
+Big brain time: What if instead of one giant, 90 minute audio file, we split it up into 10, 15, 20 minute chunks? Less fast forwarding, just delete as you go and maybe skip through 5 or 10 minutes instead of 40 or 50. I tried this with audiobooks and found it satisfactory, but manually splitting and re-encoding all these tracks by hand is time consuming and tedious. Hey, I'm a developer, let's just write a program to do it! While we're at it, let's write a script that can automatically transfer over the files as soon as we plug in the phone. Easy Peasy!
