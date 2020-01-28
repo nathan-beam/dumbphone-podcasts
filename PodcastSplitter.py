@@ -9,12 +9,19 @@ settings = Settings()
 for file in list(Path(settings.InputDir).rglob("*.mp3")):
     artist = ""
     if settings.TagArtistMetadata:
-        audiofile = eyed3.load(str(file))
-        artist = audiofile.tag.artist
-        if len(artist) == 0:
-                artist = audiofile.tag.album_artist
-        if(len(artist) == 0 and settings.UseFolderNameIfNoArtist):
-            artist = file.parts[-1]
+        try:
+            audiofile = eyed3.load(str(file))
+            artist = audiofile.tag.artist
+            if artist is None or not artist:
+                    artist = audiofile.tag.album_artist
+            if((artist is None or not artist) and settings.UseFolderNameIfNoArtist):
+                artist = file.parts[-2]
+        except:
+            if settings.UseFolderNameIfNoArtist:
+                artist = file.parts[-2]
+            else:
+                artist = "Unknown"
+        
 
     sound = AudioSegment.from_mp3(str(file))
     length = len(sound)
@@ -54,5 +61,5 @@ for file in list(Path(settings.InputDir).rglob("*.mp3")):
             audiofile.tag.save()
             end_action = time.perf_counter()
             if settings.Debug: print(f"Metadata tagged in {end_action - start_action:0.4f} seconds")
-        print(f"Total time for this segment: {end_action - start_segment:0.4f} seconds\n")
+        if settings.Debug: print(f"Total time for this segment: {end_action - start_segment:0.4f} seconds\n")
         i+=1
