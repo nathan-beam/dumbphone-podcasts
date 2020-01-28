@@ -39,6 +39,14 @@ class Settings:
     def Debug(self):
         return self.get_property('debug')
 
+    @property
+    def TagArtistMetadata(self):
+        return self.get_property('tag_artist')
+
+    @property
+    def UseFolderNameIfNoArtist(self):
+        return self.get_property('use_folder_name')
+
 
 
 settings = Settings()

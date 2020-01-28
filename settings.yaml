@@ -1,6 +1,8 @@
-input_dir: \\\\beams\\BeamBackups\\Share\\Podcasts
+input_dir: C:/podcasts
 output_dir: out\
 segment_len: 600000
 overlap_len: 2000
 playback_speed: 1.0 #This does not seem to work well, don't reccomend changing for now
 debug: False
+tag_artist: True
+use_folder_name: True

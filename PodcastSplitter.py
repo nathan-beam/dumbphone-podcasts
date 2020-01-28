@@ -2,10 +2,20 @@ from pydub import AudioSegment, effects
 import os
 from Settings import Settings
 from pathlib import Path
+import eyed3
 import time
 
 settings = Settings()
 for file in list(Path(settings.InputDir).rglob("*.mp3")):
+    artist = ""
+    if settings.TagArtistMetadata:
+        audiofile = eyed3.load(str(file))
+        artist = audiofile.tag.artist
+        if len(artist) == 0:
+                artist = audiofile.tag.album_artist
+        if(len(artist) == 0 and settings.UseFolderNameIfNoArtist):
+            artist = file.parts[-1]
+
     sound = AudioSegment.from_mp3(str(file))
     length = len(sound)
     i = 1
@@ -29,12 +39,20 @@ for file in list(Path(settings.InputDir).rglob("*.mp3")):
             if settings.Debug: print(f"Playback speed ajdusted in {end_action - start_action:0.4f} seconds")
 
         start+=segment_length-settings.OverlapLen
-        outFile = settings.OutputDir+str(i)+"-"+file.name
+        outFile = "{}{}{}{}{}".format(settings.OutputDir,file.name[:3],"-p",i,".mp3")
         if settings.Debug: print("Exporting to "+outFile)
         start_action = time.perf_counter()
         segment.export(outFile, format="mp3")
         end_action = time.perf_counter()
-        if settings.Debug: 
-            print(f"Export complete to {outFile} in {end_action - start_action:0.4f} seconds")
-            print(f"Total time for this segment: {end_action - start_segment:0.4f} seconds\n")
+        if settings.Debug: print(f"Export complete to {outFile} in {end_action - start_action:0.4f} seconds")
+        if settings.TagArtistMetadata:
+            if settings.Debug: print("Tagging Metadata")
+            start_action = time.perf_counter()
+            audiofile = eyed3.load(outFile)
+            audiofile.tag.artist = artist
+            audiofile.tag.track_num = i
+            audiofile.tag.save()
+            end_action = time.perf_counter()
+            if settings.Debug: print(f"Metadata tagged in {end_action - start_action:0.4f} seconds")
+        print(f"Total time for this segment: {end_action - start_segment:0.4f} seconds\n")
         i+=1
