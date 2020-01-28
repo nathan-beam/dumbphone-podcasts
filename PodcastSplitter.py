@@ -18,7 +18,7 @@ for file in list(Path(settings.InputDir).rglob("*.mp3")):
         end = min(start+segment_length, length)
         if settings.Debug: print(f"Splitting segment {i}: {start/1000}s - {end/1000}s")
         start_action = time.perf_counter()
-        segment = sound[s   tart:end]
+        segment = sound[start:end]
         end_action = time.perf_counter()
         if settings.Debug: print(f"Split complete in {end_action - start_action:0.4f} seconds")
         if(settings.PlaybackSpeed > 1):
