@@ -1,2 +1,6 @@
-input_folder: C:\Users\e5552404\Music
-segment_length: 600000
+input_dir: C:\podcasts
+output_dir: out\
+segment_len: 600000
+overlap_len: 2000
+playback_speed: 1.0 #This does not seem to work well, don't reccomend changing for now
+debug: False

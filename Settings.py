@@ -16,11 +16,29 @@ class Settings:
         return self._config[property_name]
 
     @property
-    def InputFolder(self):
-        return self.get_property('input_folder')
+    def InputDir(self):
+        return self.get_property('input_dir')
+    
+    @property
+    def OutputDir(self):
+        return self.get_property('output_dir')
 
     @property
     def SegmentLen(self):
-        return self.get_property('segment_length')
+        return self.get_property('segment_len')
+    
+    @property
+    def OverlapLen(self):
+        return self.get_property('overlap_len')
+
+    @property
+    def PlaybackSpeed(self):
+        return self.get_property('playback_speed')
+    
+    @property
+    def Debug(self):
+        return self.get_property('debug')
+
+
 
 settings = Settings()
