@@ -1,4 +1,4 @@
-input_dir: C:\podcasts
+input_dir: \\\\beams\\BeamBackups\\Share\\Podcasts
 output_dir: out\
 segment_len: 600000
 overlap_len: 2000
